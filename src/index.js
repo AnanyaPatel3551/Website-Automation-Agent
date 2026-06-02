@@ -1,23 +1,18 @@
-const { chromium } = require("playwright");
+const openBrowser = require("./tools/openBrowser");
+const navigateToUrl = require("./tools/navigateToUrl");
+const scroll = require("./tools/scroll");
 
 async function main() {
+  const { browser, page } = await openBrowser();
 
-  const browser = await chromium.launch({
-    headless: false
-  });
+  await navigateToUrl(
+    page,
+    "https://ui.shadcn.com/docs/forms/react-hook-form"
+  );
 
-  const page = await browser.newPage();
-
-  await page.goto(
-  "https://ui.shadcn.com/docs/forms/react-hook-form"
-);
+  await scroll(page);
 
   await page.waitForTimeout(5000);
-
-
-  await page.screenshot({
-    path: "google-homepage.png"
-  });
 
   await browser.close();
 }

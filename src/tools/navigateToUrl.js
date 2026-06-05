@@ -1,9 +1,16 @@
 async function navigateToUrl(page , url){
-  console.log(`Navigating to : ${url}`);
 
-  await page.goto(url);
+  try {
 
-  console.log("Page loaded successfully");
+     await page.goto(url);
+
+  } catch(error) {
+
+     throw new Error(
+       `Failed to navigate to ${url}`
+     );
+
+  }
 }
 
 module.exports = navigateToUrl;

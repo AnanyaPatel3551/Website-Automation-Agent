@@ -4,6 +4,7 @@ const scroll = require("../tools/scroll");
 const detectElements = require("../tools/detectElements");
 const sendKeys = require("../tools/sendKeys");
 const takeScreenshot = require("../tools/takeScreenshot");
+const config = require("../config/config");
 
 class AutomationAgent {
   async run() {
@@ -24,8 +25,8 @@ class AutomationAgent {
 
     await navigateToUrl(
       page,
-      "https://ui.shadcn.com/docs/forms/react-hook-form"
-    );
+      config.TARGET_URL
+    )
 
     await scroll(page);
 
@@ -36,12 +37,12 @@ class AutomationAgent {
 
     await sendKeys(
       titleField,
-      "Website Automation Assignment"
+      config.TITLE_TEXT
     );
 
     await sendKeys(
       descriptionField,
-      "This form was filled automatically using a Playwright-based automation agent."
+      config.DESCRIPTION_TEXT
     );
 
     await takeScreenshot(

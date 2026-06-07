@@ -5,6 +5,8 @@ const detectElements = require("../tools/detectElements");
 const sendKeys = require("../tools/sendKeys");
 const takeScreenshot = require("../tools/takeScreenshot");
 const config = require("../config/config");
+const log = require("../utils/logger");
+const doubleClick = require("../tools/doubleClick");
 
 class AutomationAgent {
   async run() {
@@ -13,7 +15,7 @@ class AutomationAgent {
 
   try {
 
-    console.log("Agent Started");
+    log("Agent Started");
 
     const browserData =
       await openBrowser();
@@ -27,6 +29,11 @@ class AutomationAgent {
       page,
       config.TARGET_URL
     )
+await page.waitForTimeout(3000);
+
+await doubleClick(page, 500, 500);
+
+await page.waitForTimeout(3000);
 
     await scroll(page);
 
@@ -50,22 +57,23 @@ class AutomationAgent {
       "filled-form"
     );
 
-    console.log("Agent Completed");
+    log("Agent Completed");
 
     await page.waitForTimeout(10000);
 
-  } catch (error) {
+  }catch (error) {
 
-    console.error(
-      "Agent Failed:",
-      error.message
-    );
+  console.error(error);
 
-  } finally {
+  log(
+    `Agent Failed: ${error.message}`
+  );
+
+}finally {
 
     if (browser) {
 
-      console.log(
+     log(
         "Closing browser..."
       );
 

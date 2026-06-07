@@ -1,9 +1,11 @@
+const log = require("../utils/logger");
+
 async function scroll(page){
-  console.log("Scrolling down . . . . . ");
+  log("Scrolling down . . . . . ");
 
   await page.mouse.wheel(0,1000);
 
-  console.log("Scroll completed");
+log("Scroll completed");
 }
 
 module.exports = scroll;

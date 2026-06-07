@@ -1,0 +1,88 @@
+[6/6/2026, 6:59:07 am] Testing Logger
+[6/6/2026, 7:03:37 am] Testing Logger
+[6/6/2026, 7:03:37 am] Agent Started
+[6/6/2026, 7:03:41 am] Agent Completed
+[6/6/2026, 7:03:51 am] Closing browser...
+[6/6/2026, 7:04:50 am] Agent Started
+[6/6/2026, 7:04:51 am] Closing browser...
+[6/6/2026, 7:10:47 am] Agent Started
+[6/6/2026, 7:10:49 am] Agent Failed:
+[6/6/2026, 7:10:49 am] Closing browser...
+[6/6/2026, 7:12:53 am] Agent Started
+[6/6/2026, 7:12:54 am] Agent Failed: log is not defined
+[6/6/2026, 7:12:54 am] Closing browser...
+[6/6/2026, 7:13:59 am] Agent Started
+[6/6/2026, 7:14:00 am] Agent Failed: log is not defined
+[6/6/2026, 7:14:00 am] Closing browser...
+[6/6/2026, 9:20:04 am] Agent Started
+[6/6/2026, 9:20:08 am] Scrolling down . . . . . 
+[6/6/2026, 9:20:08 am] Scroll completed
+[6/6/2026, 9:20:10 am] Agent Completed
+[6/6/2026, 9:20:20 am] Closing browser...
+[7/6/2026, 11:19:30 am] Agent Started
+[7/6/2026, 11:19:32 am] Scrolling down . . . . . 
+[7/6/2026, 11:19:32 am] Scroll completed
+[7/6/2026, 11:19:34 am] Agent Completed
+[7/6/2026, 11:19:44 am] Closing browser...
+[7/6/2026, 11:47:53 am] Agent Started
+[7/6/2026, 11:47:58 am] Agent Failed: doubleClick is not defined
+[7/6/2026, 11:47:58 am] Closing browser...
+[7/6/2026, 12:01:34 pm] Agent Started
+[7/6/2026, 12:01:41 pm] Scrolling down . . . . . 
+[7/6/2026, 12:01:41 pm] Scroll completed
+[7/6/2026, 12:01:43 pm] Agent Completed
+[7/6/2026, 12:01:53 pm] Closing browser...
+[7/6/2026, 10:23:29 pm] Agent Started
+[7/6/2026, 10:23:36 pm] Scrolling down . . . . . 
+[7/6/2026, 10:23:36 pm] Scroll completed
+[7/6/2026, 10:23:38 pm] Agent Completed
+[7/6/2026, 10:23:48 pm] Closing browser...
+[2:42:01 am] Express backend server started on port 3001
+[2:42:59 am] Agent Started
+[2:42:59 am] Launching Playwright Chromium browser...
+[2:43:01 am] Creating new browser context and page...
+[2:43:02 am] Navigating to URL: https://ui.shadcn.com/docs/forms/react-hook-form
+[2:43:05 am] Successfully loaded: https://ui.shadcn.com/docs/forms/react-hook-form
+[2:43:08 am] Double clicking page core coordinates for active focus...
+[2:43:08 am] Double clicking at (500 , 300)
+[2:43:08 am] Double click completed
+[2:43:09 am] Scrolling down . . . . . 
+[2:43:09 am] Scroll completed
+[2:43:11 am] Found 17 input fields
+[2:43:11 am] Input 1: Login button not working on mobile
+[2:43:11 am] Bug Title field identified successfully
+[2:43:11 am] Found 2 textarea fields
+[2:43:11 am] Textarea 1: I'm having an issue with the login button on mobile.
+[2:43:11 am] Description field identified successfully
+[2:43:11 am] Typing: Login button not working
+[2:43:11 am] Text entered successfully
+[2:43:12 am] Typing: I'm having an issue where clicking the login button on mobile Safari does nothing. It does not send any request or show validation errors.
+[2:43:12 am] Text entered successfully
+[2:43:14 am] Taking screenshot: filled-form-1780866794393
+[2:43:17 am] Screenshot saved at: C:\website-automation-agent\website-automation-agent\backend\src\screenshots\filled-form-1780866794393.png
+[2:43:17 am] Agent Completed successfully
+[2:43:19 am] Closing browser context...
+[2:45:03 am] Agent Started
+[2:45:03 am] Launching Playwright Chromium browser...
+[2:45:03 am] Creating new browser context and page...
+[2:45:03 am] Navigating to URL: https://ui.shadcn.com/docs/forms/react-hook-form
+[2:45:04 am] Successfully loaded: https://ui.shadcn.com/docs/forms/react-hook-form
+[2:45:07 am] Double clicking page core coordinates for active focus...
+[2:45:07 am] Double clicking at (500 , 300)
+[2:45:07 am] Double click completed
+[2:45:08 am] Scrolling down . . . . . 
+[2:45:08 am] Scroll completed
+[2:45:11 am] Found 17 input fields
+[2:45:11 am] Input 1: Login button not working on mobile
+[2:45:11 am] Bug Title field identified successfully
+[2:45:11 am] Found 2 textarea fields
+[2:45:11 am] Textarea 1: I'm having an issue with the login button on mobile.
+[2:45:11 am] Description field identified successfully
+[2:45:11 am] Typing: Login button not working andfix ed
+[2:45:11 am] Text entered successfully
+[2:45:12 am] Typing: I'm having an issue where clicking the login button on mobile Safari does nothing. It does not send any request or show validation errors.
+[2:45:12 am] Text entered successfully
+[2:45:13 am] Taking screenshot: filled-form-1780866913716
+[2:45:16 am] Screenshot saved at: C:\website-automation-agent\website-automation-agent\backend\src\screenshots\filled-form-1780866913716.png
+[2:45:16 am] Agent Completed successfully
+[2:45:18 am] Closing browser context...

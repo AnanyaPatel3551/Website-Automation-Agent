@@ -1,3 +1,5 @@
+const log = require("../utils/logger");
+
 async function detectElements(page) {
   const inputs = page.locator("input");
   const textareas = page.locator("textarea");
@@ -7,7 +9,7 @@ async function detectElements(page) {
 
   const inputCount = await inputs.count();
 
-  console.log(`Found ${inputCount} input fields`);
+  log(`Found ${inputCount} input fields`);
 
   for (let i = 0; i < inputCount; i++) {
     const input = inputs.nth(i);
@@ -15,7 +17,7 @@ async function detectElements(page) {
     const placeholder =
       await input.getAttribute("placeholder");
 
-    console.log(
+    log(
       `Input ${i + 1}: ${placeholder || "No Placeholder"}`
     );
 
@@ -25,7 +27,7 @@ async function detectElements(page) {
     ) {
       titleField = input;
 
-      console.log(
+      log(
         "Bug Title field identified successfully"
       );
 
@@ -35,7 +37,7 @@ async function detectElements(page) {
 
   const textareaCount = await textareas.count();
 
-  console.log(`Found ${textareaCount} textarea fields`);
+  log(`Found ${textareaCount} textarea fields`);
 
   for (let i = 0; i < textareaCount; i++) {
     const textarea = textareas.nth(i);
@@ -43,7 +45,7 @@ async function detectElements(page) {
     const placeholder =
       await textarea.getAttribute("placeholder");
 
-    console.log(
+    log(
       `Textarea ${i + 1}: ${placeholder || "No Placeholder"}`
     );
 
@@ -53,7 +55,7 @@ async function detectElements(page) {
     ) {
       descriptionField = textarea;
 
-      console.log(
+      log(
         "Description field identified successfully"
       );
 

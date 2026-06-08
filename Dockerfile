@@ -1,5 +1,5 @@
-# Use a newer official Playwright image that comes with Node.js v22+ (which satisfies Vite's engine requirements)
-FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+# Use a newer official Playwright image that comes with Node.js v24+ (which satisfies Vite's engine requirements)
+FROM mcr.microsoft.com/playwright:v1.50.0-jammy
 
 WORKDIR /usr/src/app
 

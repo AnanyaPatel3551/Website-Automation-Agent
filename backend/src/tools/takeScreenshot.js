@@ -18,7 +18,7 @@ async function takeScreenshot(page , fileName){
 
   await page.screenshot({
     path: screenshotPath,
-    fullPage : true,
+    fullPage : false,
   });
 
   log(`Screenshot saved at: ${screenshotPath}`);

@@ -2,21 +2,18 @@
 
 A responsive, premium web automation console and developer dashboard built with React and Vite. It controls a Playwright-based browser automation agent, allowing you to trigger sessions, input form payloads, monitor step-by-step pipeline executions, and analyze viewport screenshots and terminal logs.
 
-The visual layout is inspired by minimalist engineering tools like **Linear**, **Vercel**, and **Notion** using clean typography, thin borders, light gray cards, and zero neon gradients.
+---
+
+## 🔗 Live Links
+
+### 🌐 Live Application
+https://website-automation-agent-1.onrender.com/
+
+### 💻 GitHub Repository
+https://github.com/AnanyaPatel3551/Website-Automation-Agent
 
 ---
 
-## 🚀 Key Features
-
-* **Vercel-Inspired Visual Interface**: High-usability dashboard layout on a white canvas with thin zinc borders, clean Inter and JetBrains Mono typography, and precise alignment.
-* **Agent Status Card**: A dashboard control panel displaying elapsed session duration (active 100ms timer), pipeline progress ratios, current sub-step actions, and the destination hostname.
-* **Hero URL Input & Collapsible Payload**: Prominent URL browser bar, paired with a collapsible accordion containing automated form payload parameters (Bug Title, Description) to keep the layout clutter-free.
-* **Browser Viewport Mockup**: Renders browser screenshots inside a mock web browser frame featuring macOS action buttons, a secure URL address bar, and download/open-tab helpers.
-* **Terminal Console**: Monospace terminal block containing scroll-locked, level-categorized logs (`[INF]`, `[OK]`, `[WRN]`, `[ERR]`), line numbering, and a clipboard copy tool.
-* **Vertical Connected Pipeline**: Vertical check-path pipeline showing active step animations, completed checkmarks, and failures.
-* **Containerized Deployment Ready**: Multi-stage production `Dockerfile` leveraging matching Playwright runtime libraries and Node.js v24.
-
----
 
 ## 📂 Project Structure
 
@@ -112,5 +109,5 @@ Render will build the container using `playwright:v1.60.0-jammy` (Node 24) and l
 
 ## 👥 Author
 
-**Ananya Patel**  
+**Ananya Patel**
 Assignment 04 — Website Automation Agent

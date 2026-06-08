@@ -9,7 +9,7 @@ RUN npm ci --only=production
 
 # Copy frontend source files, install packages, and build the static distribution
 COPY frontend/package*.json ./frontend/
-RUN npm ci --prefix frontend
+RUN npm install --prefix frontend
 COPY frontend/ ./frontend/
 RUN npm run build --prefix frontend
 

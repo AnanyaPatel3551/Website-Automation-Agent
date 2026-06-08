@@ -1,228 +1,116 @@
-# Website Automation Agent
+# Website Automation Agent Dashboard
 
-A Playwright-based Website Automation Agent built in JavaScript that can autonomously navigate web pages, identify form elements, fill forms, take screenshots, and perform browser interactions.
+A responsive, premium web automation console and developer dashboard built with React and Vite. It controls a Playwright-based browser automation agent, allowing you to trigger sessions, input form payloads, monitor step-by-step pipeline executions, and analyze viewport screenshots and terminal logs.
 
-This project was developed as part of Assignment 04: Website Automation Agent.
-
----
-
-## Project Objective
-
-Build an intelligent browser automation agent capable of:
-
-* Opening a browser
-* Navigating to a website
-* Scrolling through web pages
-* Detecting form elements
-* Filling forms automatically
-* Performing mouse interactions
-* Capturing screenshots
-* Logging execution steps
+The visual layout is inspired by minimalist engineering tools like **Linear**, **Vercel**, and **Notion** using clean typography, thin borders, light gray cards, and zero neon gradients.
 
 ---
 
-## Target Task
+## 🚀 Key Features
 
-The agent successfully performs the following workflow:
-
-1. Opens a browser instance.
-2. Navigates to:
-
-https://ui.shadcn.com/docs/forms/react-hook-form
-
-3. Scrolls to locate the target form.
-4. Detects:
-
-   * Bug Title field
-   * Description field
-5. Automatically enters text into both fields.
-6. Captures a screenshot of the completed form.
-7. Saves logs for execution tracking.
-8. Closes the browser safely.
+* **Vercel-Inspired Visual Interface**: High-usability dashboard layout on a white canvas with thin zinc borders, clean Inter and JetBrains Mono typography, and precise alignment.
+* **Agent Status Card**: A dashboard control panel displaying elapsed session duration (active 100ms timer), pipeline progress ratios, current sub-step actions, and the destination hostname.
+* **Hero URL Input & Collapsible Payload**: Prominent URL browser bar, paired with a collapsible accordion containing automated form payload parameters (Bug Title, Description) to keep the layout clutter-free.
+* **Browser Viewport Mockup**: Renders browser screenshots inside a mock web browser frame featuring macOS action buttons, a secure URL address bar, and download/open-tab helpers.
+* **Terminal Console**: Monospace terminal block containing scroll-locked, level-categorized logs (`[INF]`, `[OK]`, `[WRN]`, `[ERR]`), line numbering, and a clipboard copy tool.
+* **Vertical Connected Pipeline**: Vertical check-path pipeline showing active step animations, completed checkmarks, and failures.
+* **Containerized Deployment Ready**: Multi-stage production `Dockerfile` leveraging matching Playwright runtime libraries and Node.js v24.
 
 ---
 
-## Technologies Used
+## 📂 Project Structure
 
-* JavaScript (Node.js)
-* Playwright
-* File System (fs)
-* Path Module
-
----
-
-## Project Structure
-
+```text
 website-automation-agent/
-
-├── src/
-
-│   ├── agent/
-
-│   │   └── AutomationAgent.js
-
-│   ├── config/
-
-│   │   └── config.js
-
-│   ├── tools/
-
-│   │   ├── openBrowser.js
-
-│   │   ├── navigateToUrl.js
-
-│   │   ├── scroll.js
-
-│   │   ├── detectElements.js
-
-│   │   ├── sendKeys.js
-
-│   │   ├── clickOnScreen.js
-
-│   │   ├── doubleClick.js
-
-│   │   └── takeScreenshot.js
-
-│   ├── utils/
-
-│   │   └── logger.js
-
-│   └── index.js
-
-├── screenshots/
-
-├── logs/
-
-├── README.md
-
-└── package.json
+├── Dockerfile                  # Production container configuration
+├── package.json                # Root concurrently development configuration
+├── backend/
+│   ├── src/
+│   │   ├── agent/
+│   │   │   └── AutomationAgent.js   # Main agent flow manager
+│   │   ├── config/
+│   │   │   └── config.js            # Default fallback parameters
+│   │   ├── tools/
+│   │   │   ├── openBrowser.js       # Browser launcher (headless container ready)
+│   │   │   ├── navigateToUrl.js     # Browser navigator
+│   │   │   ├── scroll.js            # Viewport scroll
+│   │   │   ├── detectElements.js    # Form input field identifier
+│   │   │   ├── sendKeys.js          # Form inputs typing tool
+│   │   │   ├── doubleClick.js       # Coordinate clicker
+│   │   │   └── takeScreenshot.js    # Viewport screenshot capture (OOM safe)
+│   │   ├── utils/
+│   │   │   └── logger.js            # Logging emitter
+│   │   └── index.js                 # Express 5 backend server & static web server
+├── frontend/
+│   ├── package.json            # React/Vite development package list
+│   ├── index.html               # Index template
+│   ├── src/
+│   │   ├── main.jsx             # React entry mount
+│   │   ├── App.jsx              # Main grid layout and state coordinator
+│   │   ├── index.css            # Custom fonts & core scrollbar styles
+│   │   ├── components/
+│   │   │   ├── Header.jsx              # Breadcrumb header
+│   │   │   ├── ConfigurationPanel.jsx  # Hero inputs & collapsible options
+│   │   │   ├── StatusCard.jsx          # Live metrics, timers, & hostnames
+│   │   │   ├── ScreenshotPreview.jsx   # Browser viewport mockup frame
+│   │   │   ├── LogsPanel.jsx           # Monospace console terminal
+│   │   │   ├── ExecutionTimeline.jsx   # Vertical connected pipeline nodes
+│   │   │   └── Footer.jsx              # Bottom console layout info
+```
 
 ---
 
-## Features
+## 💻 Local Development
 
-### open_browser
+### 1. Clone the repository
+```bash
+git clone https://github.com/AnanyaPatel3551/Website-Automation-Agent.git
+cd Website-Automation-Agent
+```
 
-Launches a Playwright browser instance and creates a new page.
-
-### navigate_to_url
-
-Navigates to the specified URL.
-
-### scroll
-
-Scrolls the page to reveal hidden content.
-
-### detect_elements
-
-Detects target input and textarea fields.
-
-### send_keys
-
-Types text into detected form elements.
-
-### click_on_screen
-
-Performs mouse click actions using screen coordinates.
-
-### double_click
-
-Performs double-click actions using screen coordinates.
-
-### take_screenshot
-
-Captures and stores screenshots of browser activity.
-
-### logging
-
-Records agent actions and execution status.
-
----
-
-## Installation
-
-Clone the repository:
-
-git clone <repository-url>
-
-Move into the project folder:
-
-cd website-automation-agent
-
-Install dependencies:
-
+### 2. Install dependencies
+Install root, backend, and frontend dependencies:
+```bash
 npm install
+npm install --prefix frontend
+```
 
-Install Playwright:
+### 3. Run development servers
+Start the Express API server (port 3001) and Vite client server (port 5174) concurrently:
+```bash
+npm run dev
+```
 
-npx playwright install
-
----
-
-## Running the Project
-
-Start the automation agent:
-
-node src/index.js
+Open **[http://localhost:5174/](http://localhost:5174/)** in your browser.
 
 ---
 
-## Example Output
+## ☁️ Production Deployment (Docker + Render)
 
-Agent Started
+The project is fully optimized for **single-container deployment** (the Express backend hosts the built static React client directly in production).
 
-Page Loaded Successfully
+### Deploying to Render via Docker (Recommended)
+1. Log in to [Render](https://dashboard.render.com/) and click **New +** $\rightarrow$ **Web Service**.
+2. Select your `Website-Automation-Agent` GitHub repository.
+3. Change the **Runtime** setting from Node to **Docker**.
+4. Clear the build command and start command inputs (Render will read them from the root `Dockerfile` instead).
+5. In **Advanced**, add the environment variable `PORT = 3001` (Render exposes this port automatically).
+6. Click **Deploy**.
 
-Form Elements Detected
-
-Text Entered Successfully
-
-Screenshot Saved
-
-Agent Completed
-
-Closing Browser
+Render will build the container using `playwright:v1.60.0-jammy` (Node 24) and launch the application on a public URL.
 
 ---
 
-## Screenshots
+## 🛠️ Performance & OOM Optimizations
 
-Generated screenshots are stored in:
-
-screenshots/
-
-Execution logs are stored in:
-
-logs/
+* **Vite Node requirements**: Docker base image updated to Playwright v1.60.0, upgrading the environment to Node v24 to satisfy bundler dependencies.
+* **NPM Optional Locks**: Windows-specific lock configurations are bypassed in Docker by running `npm install` exclusively on the container's frontend `package.json`, ensuring native Linux compilation bindings for `rolldown` and `esbuild` are downloaded.
+* **Browser Sandbox Bypass**: Launched Chromium with `["--no-sandbox", "--disable-setuid-sandbox"]` arguments to allow headless execution under Linux root environments.
+* **OOM Safe Screenshots**: Disabled full-page screenshots on tall pages (e.g. Shadcn's 16,000px height page) in favor of active viewport capturing. This reduces memory allocation from ~120MB+ to ~7MB, preventing Render's free 512MB RAM instance from crashing due to Out-Of-Memory (OOM) errors.
 
 ---
 
-## Error Handling
+## 👥 Author
 
-The project includes:
-
-* Try/Catch blocks
-* Browser cleanup using finally
-* Error logging
-* Safe browser shutdown
-
----
-
-## Future Improvements
-
-* OpenAI Integration
-* Gemini Integration
-* AI-based Element Detection
-* Dynamic Task Execution
-* Frontend Dashboard
-* Multi-Page Automation
-* Autonomous Browser Agent
-* Browser Use Style Workflows
-
----
-
-## Author
-
-Ananya Patel
-
-Website Automation Agent – Assignment 04
+**Ananya Patel**  
+Assignment 04 — Website Automation Agent

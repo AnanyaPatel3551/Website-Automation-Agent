@@ -1,5 +1,5 @@
-# Use the official Playwright environment which includes pre-installed browsers and OS dependencies
-FROM mcr.microsoft.com/playwright:v1.44.0-jammy
+# Use a newer official Playwright image that comes with Node.js v22+ (which satisfies Vite's engine requirements)
+FROM mcr.microsoft.com/playwright:v1.49.0-jammy
 
 WORKDIR /usr/src/app
 
@@ -7,8 +7,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --only=production
 
-# Copy frontend source files, install packages, and build the static distribution
-COPY frontend/package*.json ./frontend/
+# Copy only frontend package.json to avoid Windows lockfile constraints on native bindings (rolldown/esbuild)
+COPY frontend/package.json ./frontend/
 RUN npm install --prefix frontend
 COPY frontend/ ./frontend/
 RUN npm run build --prefix frontend

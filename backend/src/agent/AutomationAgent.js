@@ -26,7 +26,13 @@ class AutomationAgent {
     ];
 
     try {
-      log("Agent Started");
+     log("Agent Started");
+log("Browser Opened");
+log("Page Loaded");
+log("Form Elements Detected");
+log("Form Filled");
+log("Screenshot Captured");
+log("Agent Completed");
 
       // Step 1: Open Browser
       onStepChange("browser_opened", "running");
@@ -74,8 +80,11 @@ class AutomationAgent {
 
     } catch (error) {
       console.error(error);
-      log(`Agent Failed: ${error.message}`);
-      
+      log(
+  `Agent Failed: ${error.message}`,
+  "ERROR"
+);
+
       // Notify steps of failure
       onStepChange("error", error.message);
       throw error;

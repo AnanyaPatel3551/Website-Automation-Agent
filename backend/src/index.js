@@ -82,6 +82,15 @@ app.get('/api/run', async (req, res) => {
   }
 });
 
+// Serve frontend build files in production (placed after API routes)
+const distDir = path.join(__dirname, '../../frontend/dist');
+if (fs.existsSync(distDir)) {
+  app.use(express.static(distDir));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distDir, 'index.html'));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   log(`Express backend server started on port ${PORT}`);

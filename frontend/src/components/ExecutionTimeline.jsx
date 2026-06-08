@@ -1,104 +1,107 @@
 import React from 'react';
 
-const STEPS_DATA = [
-  { id: 'browser_opened', label: 'Browser Opened', desc: 'Initialize Chromium instance' },
-  { id: 'page_loaded', label: 'Page Loaded', desc: 'Navigate to target URL' },
-  { id: 'page_scrolled', label: 'Page Scrolled', desc: 'Scroll down to reveal form' },
-  { id: 'elements_detected', label: 'Elements Detected', desc: 'Identify form elements' },
-  { id: 'form_filled', label: 'Form Filled', desc: 'Fill inputs automatically' },
-  { id: 'screenshot_taken', label: 'Screenshot Taken', desc: 'Capture filled state image' }
+const STEPS = [
+  { id: 'browser_opened',   label: 'Launch Browser context' },
+  { id: 'page_loaded',      label: 'Navigate and Load Target URL' },
+  { id: 'page_scrolled',    label: 'Scroll Page viewport' },
+  { id: 'elements_detected',label: 'Detect Form fields' },
+  { id: 'form_filled',      label: 'Fill Form fields automatically' },
+  { id: 'screenshot_taken', label: 'Capture and Save Screenshot' }
 ];
 
-export default function ExecutionTimeline({ stepStates }) {
-  const getStepStatus = (id) => {
-    return stepStates[id] || 'idle';
-  };
+function StepRow({ label, status, isLast }) {
+  const isIdle = status === 'idle';
+  const isRunning = status === 'running';
+  const isDone = status === 'completed';
+  const isFailed = status === 'failed';
 
-  const getStepIcon = (status) => {
-    switch (status) {
-      case 'completed':
-        return (
-          <div className="flex items-center justify-center h-6 w-6 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+  return (
+    <div className="flex gap-4 items-start relative pb-6 group select-none">
+      {/* Vertical connector line */}
+      {!isLast && (
+        <div
+          className={`absolute left-2 top-4 bottom-0 w-[1px] -ml-[0.5px] transition-colors duration-200 ${
+            isDone ? 'bg-zinc-900' : 'bg-zinc-200'
+          }`}
+        />
+      )}
+
+      {/* Icon Node */}
+      <div className="relative z-10 shrink-0 mt-0.5">
+        {isIdle && (
+          <div className="h-4 w-4 rounded-full border border-zinc-300 bg-white flex items-center justify-center" />
+        )}
+        {isRunning && (
+          <div className="h-4 w-4 border-2 border-zinc-200 border-t-zinc-900 rounded-full animate-spin bg-white" />
+        )}
+        {isDone && (
+          <div className="h-4 w-4 rounded-full bg-zinc-950 flex items-center justify-center shadow-xs">
+            <svg className="h-2 w-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-        );
-      case 'running':
-        return (
-          <div className="flex items-center justify-center h-6 w-6 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/30">
-            <svg className="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-            </svg>
-          </div>
-        );
-      case 'failed':
-        return (
-          <div className="flex items-center justify-center h-6 w-6 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/30">
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+        )}
+        {isFailed && (
+          <div className="h-4 w-4 rounded-full bg-rose-650 flex items-center justify-center shadow-xs">
+            <svg className="h-2 w-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-        );
-      case 'idle':
-      default:
-        return (
-          <div className="flex items-center justify-center h-6 w-6 rounded-full bg-zinc-900/50 text-zinc-700 border border-zinc-800">
-            <div className="h-1.5 w-1.5 rounded-full bg-zinc-700"></div>
-          </div>
-        );
-    }
-  };
-
-  const getStepClass = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'border-emerald-500/15 bg-emerald-950/5';
-      case 'running':
-        return 'border-purple-500/30 bg-purple-950/10';
-      case 'failed':
-        return 'border-rose-500/20 bg-rose-950/5';
-      case 'idle':
-      default:
-        return 'border-zinc-800/40 bg-zinc-950/10 opacity-50';
-    }
-  };
-
-  return (
-    <div className="bg-zinc-900/30 border border-zinc-800 rounded-xl p-5 backdrop-blur-xs flex flex-col h-full">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="p-1 rounded-md bg-purple-500/10 text-purple-400">
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-          </svg>
-        </div>
-        <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">Execution Timeline</h2>
+        )}
       </div>
 
-      <div className="flex-1 flex flex-col justify-between gap-2.5">
-        {STEPS_DATA.map((step) => {
-          const status = getStepStatus(step.id);
-          return (
-            <div
-              key={step.id}
-              className={`flex items-start gap-4.5 p-3 rounded-lg border transition-all duration-300 ${getStepClass(status)}`}
-            >
-              <div className="mt-0.5 shrink-0">{getStepIcon(status)}</div>
-              <div className="flex flex-col text-left">
-                <span className={`text-xs font-bold ${
-                  status === 'running' ? 'text-purple-400' :
-                  status === 'completed' ? 'text-emerald-400' :
-                  status === 'failed' ? 'text-rose-400' : 'text-zinc-500'
-                }`}>
-                  {step.label}
-                </span>
-                <span className="text-[10px] text-zinc-600 font-mono mt-0.5">{step.desc}</span>
-              </div>
-            </div>
-          );
-        })}
+      {/* Step Label & status text */}
+      <div className="flex flex-col gap-0.5">
+        <span className={`text-xs transition-colors duration-150 ${
+          isIdle ? 'text-zinc-400 font-normal' :
+          isRunning ? 'text-zinc-950 font-semibold' :
+          isDone ? 'text-zinc-850 font-medium' :
+          isFailed ? 'text-rose-600 font-semibold' : ''
+        }`}>
+          {label}
+        </span>
+        
+        {isRunning && (
+          <span className="text-[10px] text-zinc-500 font-mono">
+            processing...
+          </span>
+        )}
+        {isDone && (
+          <span className="text-[10px] text-zinc-400 font-mono">
+            completed
+          </span>
+        )}
+        {isFailed && (
+          <span className="text-[10px] text-rose-500 font-mono">
+            failed
+          </span>
+        )}
       </div>
     </div>
+  );
+}
+
+/**
+ * ExecutionTimeline — Displays steps of the browser automation run connected by a tree pipeline.
+ */
+export default function ExecutionTimeline({ stepStates }) {
+  const getStatus = (id) => stepStates[id] ?? 'idle';
+
+  return (
+    <section className="bg-white border border-zinc-200/80 rounded-lg p-6">
+      <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-6">
+        Execution Pipeline
+      </h2>
+      <div className="flex flex-col">
+        {STEPS.map((step, idx) => (
+          <StepRow
+            key={step.id}
+            label={step.label}
+            status={getStatus(step.id)}
+            isLast={idx === STEPS.length - 1}
+          />
+        ))}
+      </div>
+    </section>
   );
 }

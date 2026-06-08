@@ -1,62 +1,125 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+/**
+ * LogsPanel — Scrollable log area with monospace font, simulating a professional build terminal.
+ * Muted syntax highlighting for INFO, SUCCESS, and ERROR logs, plus copy-to-clipboard functionality.
+ */
 export default function LogsPanel({ logs }) {
-  const logEndRef = useRef(null);
+  const bottomRef = useRef(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (logEndRef.current) {
-      logEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [logs]);
 
-  return (
-    <div className="bg-zinc-900/30 border border-zinc-800 rounded-xl p-5 backdrop-blur-xs flex flex-col h-full">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center gap-2">
-          <div className="p-1 rounded-md bg-purple-500/10 text-purple-400">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">Console Logs</h2>
-        </div>
-        <span className="text-[10px] font-mono text-zinc-600 select-none">
-          {logs.length} line{logs.length !== 1 ? 's' : ''}
-        </span>
-      </div>
+  const handleCopy = () => {
+    if (logs.length === 0) return;
+    const logText = logs.join('\n');
+    navigator.clipboard.writeText(logText).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
-      <div className="flex-1 bg-zinc-950/80 border border-zinc-900 rounded-lg p-4 font-mono text-[11px] text-zinc-300 overflow-y-auto max-h-[300px] text-left space-y-1.5 shadow-inner">
-        {logs.length > 0 ? (
-          <>
-            {logs.map((logLine, idx) => {
-              const isError = logLine.toLowerCase().includes('fail') || logLine.toLowerCase().includes('error');
-              const isSuccess = logLine.toLowerCase().includes('success') || logLine.toLowerCase().includes('complete');
-              
-              return (
-                <div
-                  key={idx}
-                  className={`leading-relaxed border-l-2 pl-2.5 py-0.5 transition-all duration-300 ${
-                    isError ? 'border-rose-500/80 text-rose-400 bg-rose-950/5' :
-                    isSuccess ? 'border-emerald-500/80 text-emerald-400 bg-emerald-950/5' :
-                    'border-zinc-850 text-zinc-400'
-                  }`}
-                >
-                  <span className="text-[9px] text-zinc-700 mr-2.5 select-none">{String(idx + 1).padStart(2, '0')}</span>
-                  {logLine}
-                </div>
-              );
-            })}
-            <div ref={logEndRef} />
-          </>
-        ) : (
-          <div className="h-full flex flex-col items-center justify-center text-zinc-700 select-none py-12">
-            <svg className="h-5 w-5 mb-2 opacity-40 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-            </svg>
-            <span className="text-zinc-650 text-[10px]">Console output is empty. Run the agent to inspect output.</span>
-          </div>
+  return (
+    <section className="flex flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">
+            Console Output
+          </h2>
+          {logs.length > 0 && (
+            <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-500 tabular-nums">
+              {logs.length} line{logs.length !== 1 ? 's' : ''}
+            </span>
+          )}
+        </div>
+
+        {logs.length > 0 && (
+          <button
+            onClick={handleCopy}
+            className="text-[11px] font-medium text-zinc-500 hover:text-zinc-900 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded px-2.5 py-1 transition-all inline-flex items-center gap-1.5 shadow-2xs select-none cursor-pointer"
+          >
+            {copied ? (
+              <>
+                <svg className="h-3 w-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Copied!</span>
+              </>
+            ) : (
+              <>
+                <svg className="h-3 w-3 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                <span>Copy Logs</span>
+              </>
+            )}
+          </button>
         )}
       </div>
-    </div>
+
+      {/* Terminal Display */}
+      <div className="border border-zinc-200/80 rounded-lg bg-zinc-950 p-4 font-mono shadow-xs">
+        <div className="overflow-y-auto max-h-60 pr-2 flex flex-col gap-1.5">
+          {logs.length === 0 ? (
+            <div className="flex items-center gap-2 py-6 text-zinc-500 text-xs select-none">
+              <span className="h-1.5 w-1.5 rounded-full bg-zinc-600 animate-pulse" />
+              <span>Awaiting agent session start...</span>
+            </div>
+          ) : (
+            <>
+              {logs.map((line, i) => {
+                // Determine log category / color
+                const isError = /error|failed/i.test(line);
+                const isSuccess = /success|completed/i.test(line);
+                const isWarning = /warning|warn/i.test(line);
+
+                let logColor = 'text-zinc-350';
+                let tag = '';
+                
+                if (isError) {
+                  logColor = 'text-rose-450';
+                  tag = '[ERR]';
+                } else if (isSuccess) {
+                  logColor = 'text-emerald-400';
+                  tag = '[OK]';
+                } else if (isWarning) {
+                  logColor = 'text-amber-400';
+                  tag = '[WRN]';
+                } else {
+                  tag = '[INF]';
+                }
+
+                return (
+                  <div key={i} className="flex items-baseline gap-3 text-xs leading-relaxed group">
+                    {/* Line index */}
+                    <span className="text-zinc-700 text-[10px] shrink-0 select-none w-5 text-right font-medium">
+                      {i + 1}
+                    </span>
+                    
+                    {/* Log tag */}
+                    <span className={`text-[10px] font-semibold select-none tracking-wider shrink-0 ${
+                      isError ? 'text-rose-500/80' : 
+                      isSuccess ? 'text-emerald-500/80' : 
+                      isWarning ? 'text-amber-500/80' : 
+                      'text-zinc-550'
+                    }`}>
+                      {tag}
+                    </span>
+
+                    {/* Log content */}
+                    <span className={`${logColor} break-all whitespace-pre-wrap flex-1`}>
+                      {line}
+                    </span>
+                  </div>
+                );
+              })}
+              <div ref={bottomRef} />
+            </>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

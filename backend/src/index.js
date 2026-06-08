@@ -86,7 +86,7 @@ app.get('/api/run', async (req, res) => {
 const distDir = path.join(__dirname, '../../frontend/dist');
 if (fs.existsSync(distDir)) {
   app.use(express.static(distDir));
-  app.get('*', (req, res) => {
+  app.get('(.*)', (req, res) => {
     res.sendFile(path.join(distDir, 'index.html'));
   });
 }
